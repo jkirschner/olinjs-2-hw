@@ -4,12 +4,15 @@
  */
 
 var express = require('express'),
-	routes = require('./routes'),
+	routes = require('./routes/index'),
 	cats = require('./routes/cats'),
 	http = require('http'),
 	path = require('path');
 
 var app = express();
+
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGOLAB_URI || 'localhost');
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000); // sets up the port
