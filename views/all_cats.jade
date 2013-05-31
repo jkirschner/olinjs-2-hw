@@ -1,0 +1,7 @@
+extends layout
+
+block content
+	div
+		each cat, i in cats
+			div
+				| #{cat.name} is #{cat.age} with #{cat.colors}-colored fur.
