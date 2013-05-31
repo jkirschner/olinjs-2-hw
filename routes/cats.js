@@ -34,20 +34,19 @@ function getRandomInt(low, high) {
 exports.get_all = function(req, res){
 	Cat
 	.find()
+	.sort('age')
 	.exec(function (err, allCats) {
 		if (err) {
 			console.log(err);
 			res.send("Error getting cats from collection.");
 		}
 		else {
-			allCats.sort(function(a,b){return a.age-b.age});
 			res.render('all_cats', {
 				cats: allCats,
 				title: 'Listing of all cats'
 			});
 		}
 	});
-
 }
 
 exports.add_cat = function(req, res){
@@ -85,5 +84,23 @@ exports.get_by_color = function(req, res){
 };
 
 exports.delete_oldest = function(req, res){
-  res.send("respond with a resource");
+	Cat
+	.find()
+	.limit(1)
+	.sort('-age')
+	.exec(function (err, cats) {
+		if (err) {
+			console.log(err);
+			res.send("Error getting cats from collection.");
+		}
+		else {
+			// Cats should only have 1 element.
+			// Remove it from collection.
+			for (var i = 0; i < cats.length; i++) {cats[i].remove();}
+			res.render('deleted_cat', {
+				cats: cats,
+				title: 'All removed cats:'
+			});
+		}
+	});
 };
