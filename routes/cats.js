@@ -6,7 +6,7 @@
 var path = require('path'),
 	mongoose = require('mongoose');
 
-var schemas = require(path.join(__dirname,"..","model","schemas"));
+var schemas = require(path.join(__dirname,"..","models","schemas"));
 var Cat = mongoose.model('Cat', schemas.cat);
 
 var catNames = [
