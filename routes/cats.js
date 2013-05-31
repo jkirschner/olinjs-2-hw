@@ -80,7 +80,22 @@ exports.add_cat = function(req, res){
 };
 
 exports.get_by_color = function(req, res){
-  res.send("respond with a resource");
+	Cat
+	.find()
+	.where('colors').in([req.params.color])
+	.sort('age')
+	.exec(function (err, cats) {
+		if (err) {
+			console.log(err);
+			res.send("Error getting cats from collection.");
+		}
+		else {
+			res.render('all_cats', {
+				cats: cats,
+				title: 'Listing of all cats with color '+req.params.color
+			});
+		}
+	});
 };
 
 exports.delete_oldest = function(req, res){
