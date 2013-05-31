@@ -3,9 +3,10 @@
  * GET cat related pages.
  */
 
-var path = require('path');
+var path = require('path'),
+	mongoose = require('mongoose');
 
-var schemas = require(path.join(__dirname,"model","schemas"));
+var schemas = require(path.join(__dirname,"..","model","schemas"));
 var Cat = mongoose.model('Cat', schemas.cat);
 
 var catNames = [
@@ -40,7 +41,7 @@ exports.add = function(req, res){
 	var colorOptions = catColors.slice(0);
 	var colorSelections = [];
 	for (var i = 0; i < getRandomInt(1,catColors.length); i++) {
-		var newIdx = getRandomInt(0,catColors.length-1);
+		var newIdx = getRandomInt(0,colorOptions.length-1);
 		colorSelections.push(colorOptions[newIdx]);
 		colorOptions.splice(newIdx,1);
 	}
@@ -51,9 +52,10 @@ exports.add = function(req, res){
 			colors: colorSelections
 		}
 	);
-	//newCat.save(function(err) {
-	//	if (err) {console.log("Problem saving new cat.", err);}
-	//});
+	
+	newCat.save(function(err) {
+		if (err) {console.log("Problem saving new cat.", err);}
+	});
 	
 	res.send(
 		"New cat created with\n\t"+
