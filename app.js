@@ -32,9 +32,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/cats', cats.index);
-app.get('/cats/new', cats.add);
-app.get('/cats/color/:color', cats.by_color);
+app.get('/cats', cats.get_all);
+app.get('/cats/new', cats.add_cat);
+app.get('/cats/color/:color', cats.get_by_color);
 app.get('/cats/delete/old', cats.delete_oldest);
 
 /*

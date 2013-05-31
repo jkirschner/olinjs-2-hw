@@ -31,11 +31,26 @@ function getRandomInt(low, high) {
 	return (idx);
 }
 
-exports.index = function(req, res){
-	res.send("placeholder - cat index");
+exports.get_all = function(req, res){
+	Cat
+	.find()
+	.exec(function (err, allCats) {
+		if (err) {
+			console.log(err);
+			res.send("Error getting cats from collection.");
+		}
+		else {
+			allCats.sort(function(a,b){return a.age-b.age});
+			res.render('all_cats', {
+				cats: allCats,
+				title: 'Listing of all cats'
+			});
+		}
+	});
+
 }
 
-exports.add = function(req, res){
+exports.add_cat = function(req, res){
 	
 	// Create copy of catColors array
 	var colorOptions = catColors.slice(0);
@@ -65,7 +80,7 @@ exports.add = function(req, res){
 	);
 };
 
-exports.by_color = function(req, res){
+exports.get_by_color = function(req, res){
   res.send("respond with a resource");
 };
 
