@@ -41,7 +41,7 @@ exports.get_all = function(req, res){
 			res.send("Error getting cats from collection.");
 		}
 		else {
-			res.render('all_cats', {
+			res.render('cat_list', {
 				cats: allCats,
 				title: 'Listing of all cats'
 			});
@@ -90,7 +90,7 @@ exports.get_by_color = function(req, res){
 			res.send("Error getting cats from collection.");
 		}
 		else {
-			res.render('all_cats', {
+			res.render('cat_list', {
 				cats: cats,
 				title: 'Listing of all cats with color '+req.params.color
 			});
@@ -112,9 +112,9 @@ exports.delete_oldest = function(req, res){
 			// Cats should only have 1 element.
 			// Remove it from collection.
 			for (var i = 0; i < cats.length; i++) {cats[i].remove();}
-			res.render('deleted_cat', {
+			res.render('cat_list', {
 				cats: cats,
-				title: 'All removed cats:'
+				title: 'All removed cats'
 			});
 		}
 	});
